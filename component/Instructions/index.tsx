@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styles from './styles';
 import { StyleSheet, Image, View, Text} from 'react-native';
-import {
-   Poppins_600SemiBold
-  } from "@expo-google-fonts/dev";
+import AppLoading from 'expo-app-loading';
+import { useFonts, Poppins_600SemiBold, } from '@expo-google-fonts/poppins';
 
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -32,13 +31,21 @@ export default function Instructions () {
  const [showHome, setShowHome] = useState(false);
 
  function renderSliders({item}){
+    let [fontsLoaded] = useFonts({
+        Poppins_600SemiBold, 
+      });
+    
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }
+    
     return(
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Image 
             source={item.image}
            
         />
-        <Text  style={{color: '#000', fontFamily: Poppins_600SemiBold, fontSize: '30px', textAlign: 'center', fontWeight: '600', width: '90%',}} >
+        <Text  style={{color: '#000', fontFamily: 'Poppins_600SemiBold', textAlign: 'center', fontWeight: '600', width: '90%'}} >
             {item.title}
         </Text>
 
